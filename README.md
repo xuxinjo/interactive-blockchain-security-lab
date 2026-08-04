@@ -36,12 +36,22 @@ The lab is intended for classroom explanation. It contains no exploit code, wall
 
 Requirements: Node.js 20-24 and npm.
 
+Automated setup and launch from Git Bash, WSL, macOS, or Linux:
+
+```bash
+bash ./run.sh
+```
+
+Or run the setup manually:
+
 ```bash
 npm ci
 npm run dev
 ```
 
 Open `http://localhost:3000`.
+
+See [USER_GUIDE.md](USER_GUIDE.md) for the complete setup instructions, 3D controls, module UX, accessibility, and troubleshooting.
 
 ## Build and test
 

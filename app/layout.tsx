@@ -5,6 +5,7 @@ import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { AxeDevCheck } from "@/components/layout/AxeDevCheck";
+import { RouteTransitionProvider } from "@/components/layout/RouteTransitionProvider";
 import type { ReactNode } from "react";
 
 const inter = Inter({
@@ -22,13 +23,15 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <AxeDevCheck />
-        <DisclaimerBanner />
-        <SiteHeader />
-        <main id="main-content" role="main" tabIndex={-1}>
-          {children}
-        </main>
-        <SiteFooter />
+        <RouteTransitionProvider>
+          <AxeDevCheck />
+          <DisclaimerBanner />
+          <SiteHeader />
+          <main id="main-content" role="main" tabIndex={-1}>
+            {children}
+          </main>
+          <SiteFooter />
+        </RouteTransitionProvider>
       </body>
     </html>
   );
