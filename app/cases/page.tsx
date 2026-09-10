@@ -1,23 +1,14 @@
-import { CaseComparisonTable } from "@/components/cases/CaseComparisonTable";
-import { CaseTemplateCard } from "@/components/cases/CaseTemplate";
+import { CaseLibrary } from "@/components/cases/CaseLibrary";
 import { MotionSection } from "@/components/ui/MotionSection";
-import { incidentCases } from "@/content/cases/incidents";
+import { PageIntro } from "@/components/ui/PageIntro";
 
 export default function CasesPage() {
   return (
     <MotionSection className="space-y-6">
-      <header className="space-y-2">
-        <h2 className="text-3xl font-semibold text-white">Cases</h2>
-        <p className="text-slate-300">
-          The six incidents are shown with the same five-part structure used in the thesis.
-        </p>
-      </header>
-      <CaseComparisonTable incidents={incidentCases} />
-      <div className="grid gap-4 lg:grid-cols-2">
-        {incidentCases.map((incident) => (
-          <CaseTemplateCard key={incident.slug} incident={incident} />
-        ))}
-      </div>
+      <PageIntro number="03" label="The incident library" title="Real incidents. Lasting lessons.">
+        Search six documented cases, investigate the assumptions that failed, and select two incidents to compare their lessons.
+      </PageIntro>
+      <CaseLibrary />
     </MotionSection>
   );
 }

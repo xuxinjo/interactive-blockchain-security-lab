@@ -86,22 +86,23 @@ export function CaseTemplateDetail({ incident }: CaseTemplateDetailProps) {
         {incident.documentedLoss?.label ?? "Not quantified"}
       </p>
 
+      <nav className="flex flex-wrap gap-2" aria-label="Incident sections">{["Reconstruction", "Layers", "Security goals", "Trust failure", "Lessons"].map((label, index) => <a key={label} className="filter-chip" href={`#incident-section-${index}`}>{label}</a>)}</nav>
       <ol className="list-decimal space-y-4 pl-5 text-slate-200">
-        <li>
+        <li id="incident-section-0" className="scroll-mt-6">
           <span className="font-semibold text-cyan-200">Factual reconstruction:</span> {incident.factualReconstruction}
         </li>
-        <li>
+        <li id="incident-section-1" className="scroll-mt-6">
           <span className="font-semibold text-cyan-200">Layers involved:</span>{" "}
           <span className="capitalize">{incident.layersInvolved.join(", ")}</span>
         </li>
-        <li>
+        <li id="incident-section-2" className="scroll-mt-6">
           <span className="font-semibold text-cyan-200">Pillar(s) affected:</span>{" "}
           <span className="capitalize">{incident.pillarsAffected.join(", ")}</span>
         </li>
-        <li>
+        <li id="incident-section-3" className="scroll-mt-6">
           <span className="font-semibold text-cyan-200">Trust assumption violated:</span> {incident.trustAssumptionViolated}
         </li>
-        <li>
+        <li id="incident-section-4" className="scroll-mt-6">
           <span className="font-semibold text-cyan-200">Public response and lessons:</span> {incident.publicResponseAndLessons}
         </li>
       </ol>

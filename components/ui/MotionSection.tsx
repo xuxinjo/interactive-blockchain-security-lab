@@ -1,6 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 interface MotionSectionProps {
@@ -10,17 +7,12 @@ interface MotionSectionProps {
 }
 
 export function MotionSection({ children, className, ariaLabel }: MotionSectionProps) {
-  const reduceMotion = useReducedMotion();
-
   return (
-    <motion.section
+    <section
       aria-label={ariaLabel}
-      className={className}
-      initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-      animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.28, ease: "easeOut" }}
+      className={`page-enter ${className ?? ""}`}
     >
       {children}
-    </motion.section>
+    </section>
   );
 }

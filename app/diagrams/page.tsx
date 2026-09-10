@@ -1,21 +1,14 @@
-import { DiagramFrame } from "@/components/diagram/DiagramFrame";
+import { DiagramExplorer } from "@/components/diagram/DiagramExplorer";
 import { MotionSection } from "@/components/ui/MotionSection";
-import { diagramModels } from "@/content/diagrams";
+import { PageIntro } from "@/components/ui/PageIntro";
 
 export default function DiagramsPage() {
   return (
     <MotionSection className="space-y-6">
-      <header className="space-y-2">
-        <h2 className="text-3xl font-semibold text-white">Animated Conceptual Diagrams</h2>
-        <p className="text-slate-300">
-          Each diagram provides Play scenario, Next step, and Reset controls with abstract visuals only.
-        </p>
-      </header>
-      <div className="grid gap-5">
-        {diagramModels.map((model) => (
-          <DiagramFrame key={model.id} model={model} />
-        ))}
-      </div>
+      <PageIntro number="02" label="Visual field guide" title="See the sequence. Understand the risk.">
+        Choose a concept, play the sequence, and explore how each layer responds. Six guided diagrams, at your own pace.
+      </PageIntro>
+      <DiagramExplorer />
     </MotionSection>
   );
 }

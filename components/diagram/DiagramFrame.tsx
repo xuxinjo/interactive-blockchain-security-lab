@@ -11,6 +11,7 @@ interface DiagramFrameProps {
 export function DiagramFrame({ model }: DiagramFrameProps) {
   const [stepIndex, setStepIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [speed, setSpeed] = useState(1);
   const [adversarialView, setAdversarialView] = useState(false);
   const [visibleLayers, setVisibleLayers] = useState(model.layers);
   const reduceMotion = useReducedMotion();
@@ -19,21 +20,14 @@ export function DiagramFrame({ model }: DiagramFrameProps) {
   const colors = useMemo(() => ["#2dd4bf", "#38bdf8", "#94a3b8"], []);
 
   useEffect(() => {
-    if (!playing) {
+    if (!playing || stepIndex >= model.steps.length - 1) {
+      if (playing) setPlaying(false);
       return;
     }
-    const timer = window.setInterval(() => {
-      setStepIndex((current) => {
-        if (current >= model.steps.length - 1) {
-          setPlaying(false);
-          return current;
-        }
-        return current + 1;
-      });
-    }, 1400);
+    const timer = window.setTimeout(() => setStepIndex((current) => current + 1), 2200 / speed);
 
-    return () => window.clearInterval(timer);
-  }, [playing, model.steps.length]);
+    return () => window.clearTimeout(timer);
+  }, [playing, model.steps.length, stepIndex, speed]);
 
   function toggleLayer(layer: DiagramMetadata["layers"][number]) {
     setVisibleLayers((current) =>
@@ -49,6 +43,7 @@ export function DiagramFrame({ model }: DiagramFrameProps) {
   }
 
   function nextStep() {
+    setPlaying(false);
     setStepIndex((current) => Math.min(current + 1, model.steps.length - 1));
   }
 
@@ -62,16 +57,22 @@ export function DiagramFrame({ model }: DiagramFrameProps) {
       <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Diagram controls">
         <button
           type="button"
-          onClick={() => setPlaying((value) => !value)}
-          className="rounded-md border border-cyan-400/70 bg-cyan-900/20 px-3 py-1.5 text-sm text-cyan-100"
+          onClick={() => {
+            if (stepIndex === model.steps.length - 1) setStepIndex(0);
+            setPlaying((value) => !value);
+          }}
+          className="action-button"
+          data-primary="true"
           aria-label={playing ? `Pause ${model.title}` : `Play ${model.title}`}
         >
-          {playing ? "Pause scenario" : "Play scenario"}
+          {playing ? "Pause scenario" : stepIndex === model.steps.length - 1 ? "Replay scenario" : "Play scenario"}
         </button>
+        <button type="button" className="action-button" disabled={stepIndex === 0} onClick={() => { setPlaying(false); setStepIndex((current) => current - 1); }}>Previous step</button>
         <button
           type="button"
           onClick={nextStep}
-          className="rounded-md border border-teal-300/70 bg-teal-950/30 px-3 py-1.5 text-sm text-teal-100"
+          disabled={stepIndex === model.steps.length - 1}
+          className="action-button"
           aria-label={`Advance ${model.title} to next step`}
         >
           Next step
@@ -79,12 +80,18 @@ export function DiagramFrame({ model }: DiagramFrameProps) {
         <button
           type="button"
           onClick={resetDiagram}
-          className="rounded-md border border-slate-600 px-3 py-1.5 text-sm text-slate-200"
+          className="action-button"
           aria-label={`Reset ${model.title}`}
         >
           Reset
         </button>
+        <label className="flex items-center gap-2 text-sm text-slate-400 sm:ml-auto">Speed<select className="field" value={speed} onChange={(event) => setSpeed(Number(event.target.value))}><option value={0.5}>0.5×</option><option value={1}>1×</option><option value={2}>2×</option></select></label>
       </div>
+
+      <div className="grid gap-2 sm:grid-cols-3" role="group" aria-label="Diagram steps">
+        {model.steps.map((item, index) => <button key={item.title} type="button" className="step-button" aria-pressed={stepIndex === index} onClick={() => { setPlaying(false); setStepIndex(index); }}><span className="mb-1 block text-xs text-teal-300">{index < stepIndex ? "✓" : `0${index + 1}`}</span>{item.title}</button>)}
+      </div>
+      <div className="progress-track" aria-hidden="true"><div className="progress-fill" style={{ width: `${(stepIndex + 1) / model.steps.length * 100}%` }} /></div>
 
       <div className="flex flex-wrap items-center gap-3">
         {model.layers.map((layer) => (
@@ -122,6 +129,7 @@ export function DiagramFrame({ model }: DiagramFrameProps) {
         <svg viewBox="0 0 720 250" role="img" aria-label={model.longDescription} className="w-full min-w-[36rem]">
           <title>{model.title}</title>
           <desc>{model.longDescription}</desc>
+          {visibleLayers.length === 0 && <text x="360" y="125" textAnchor="middle" fill="#94a3b8" fontSize="17">Select a layer above to restore the diagram.</text>}
           {model.layers
             .filter((layer) => visibleLayers.includes(layer))
             .map((layer, index) => {
@@ -129,32 +137,34 @@ export function DiagramFrame({ model }: DiagramFrameProps) {
               const color = colors[index % colors.length];
               return (
                 <g key={layer}>
-                  <rect x="18" y={y} width="684" height="52" rx="10" fill={color} opacity={adversarialView ? 0.18 : 0.28} />
-                  <text x="34" y={y + 32} fill="#e2e8f0" fontSize="15">
-                    {layer.toUpperCase()} :: {step.title}
-                  </text>
+                  <text x="20" y={y + 28} fill={color} fontSize="12">{layer.toUpperCase()}</text>
+                  <line x1="176" y1={y + 24} x2="652" y2={y + 24} stroke={color} strokeOpacity="0.25" strokeDasharray="4 5" />
+                  {model.steps.map((item, itemIndex) => <g key={item.title}>
+                    <rect x={155 + itemIndex * 183} y={y} width="169" height="50" rx="10" fill={itemIndex === stepIndex ? (adversarialView ? "#881337" : "#134e4a") : "#0f172a"} stroke={itemIndex <= stepIndex ? color : "#334155"} />
+                    <text x={239 + itemIndex * 183} y={y + 22} textAnchor="middle" fill={itemIndex === stepIndex ? "#f8fafc" : "#94a3b8"} fontSize="12">{item.title}</text>
+                    <text x={239 + itemIndex * 183} y={y + 39} textAnchor="middle" fill={color} fontSize="10">{itemIndex < stepIndex ? "EXPLORED" : itemIndex === stepIndex ? "CURRENT STEP" : "UP NEXT"}</text>
+                  </g>)}
                 </g>
               );
             })}
 
-          {!reduceMotion && (
+          {visibleLayers.length > 0 && (
             <motion.circle
+              className="motion-only"
               cx="34"
-              cy={36 + stepIndex * 68}
+              cy={20}
               r="5"
               fill={adversarialView ? "#f43f5e" : "#22d3ee"}
-              animate={{ cx: [34, 350, 685], opacity: [0.35, 1, 0.35] }}
+              animate={reduceMotion ? undefined : { cx: [34, 350, 685], opacity: [0.35, 1, 0.35] }}
               transition={{ duration: 1.1, ease: "easeInOut" }}
             />
           )}
         </svg>
       </div>
 
-      <motion.div
+      <div
         key={`${model.id}-${stepIndex}-${adversarialView ? "adv" : "honest"}`}
-        className="rounded-md border border-slate-700 bg-slate-900 p-3 text-sm"
-        initial={reduceMotion ? undefined : { opacity: 0, y: 4 }}
-        animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+        className="page-enter rounded-md border border-slate-700 bg-slate-900 p-3 text-sm"
         aria-live="polite"
       >
         <p className="font-medium text-white">
@@ -165,7 +175,7 @@ export function DiagramFrame({ model }: DiagramFrameProps) {
             ? `Adversarial view: ${step.description}`
             : `Honest view: ${step.description}`}
         </p>
-      </motion.div>
+      </div>
     </section>
   );
 }

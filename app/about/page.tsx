@@ -1,17 +1,18 @@
 import { MotionSection } from "@/components/ui/MotionSection";
+import { PageIntro } from "@/components/ui/PageIntro";
+import Link from "next/link";
 import { researchQuestions, thesisMetadata } from "@/content/thesis";
 import { thesisSectionMappings } from "@/lib/thesisMap";
 
 export default function AboutPage() {
   return (
     <MotionSection className="space-y-6">
-      <header className="space-y-2">
-        <h2 className="text-3xl font-semibold text-white">About</h2>
+      <PageIntro number="07" label="Behind the lab" title="From research to exploration.">
         <p className="max-w-3xl text-slate-200">
           {thesisMetadata.artefact} is a prototype for the thesis &quot;{thesisMetadata.title}&quot;:
           &quot;{thesisMetadata.subtitle}&quot;.
         </p>
-      </header>
+      </PageIntro>
 
       <section className="grid gap-4 lg:grid-cols-2">
         <article className="panel space-y-3">
@@ -49,7 +50,10 @@ export default function AboutPage() {
           <ol className="space-y-2 text-sm text-slate-200">
             {researchQuestions.map((question) => (
               <li key={question.id}>
-                <span className="font-semibold text-cyan-200">{question.id}:</span> {question.text}
+                <details className="inspector-card">
+                  <summary><span className="font-semibold text-cyan-200">{question.id}:</span> {question.text}</summary>
+                  <Link className="action-button" href={question.id === "RQ1" ? "/framework" : question.id === "RQ2" ? "/diagrams" : question.id === "RQ3" ? "/insights" : "/cases"}>Explore this question <span aria-hidden="true">↗</span></Link>
+                </details>
               </li>
             ))}
           </ol>
@@ -73,7 +77,7 @@ export default function AboutPage() {
               {thesisSectionMappings.map((mapping) => (
                 <tr key={`${mapping.thesisSection}-${mapping.route}`}>
                   <td>{mapping.thesisSection}</td>
-                  <td>{mapping.route}</td>
+                  <td><div className="flex flex-wrap gap-2">{Array.from(new Set(mapping.route.match(/\/[a-z-]*/g) ?? [])).map((route) => <Link key={route} href={route} className="inline-flex min-h-11 items-center text-cyan-300 underline hover:text-teal-200">{route === "/" ? "Home" : route}</Link>)}</div></td>
                   <td>{mapping.status}</td>
                   <td>{mapping.purpose}</td>
                 </tr>

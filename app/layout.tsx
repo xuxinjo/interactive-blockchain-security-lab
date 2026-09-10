@@ -4,6 +4,7 @@ import "./globals.css";
 import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { ExploreNext } from "@/components/layout/ExploreNext";
 import { AxeDevCheck } from "@/components/layout/AxeDevCheck";
 import { RouteTransitionProvider } from "@/components/layout/RouteTransitionProvider";
 import type { ReactNode } from "react";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           <SiteHeader />
           <main id="main-content" role="main" tabIndex={-1}>
             {children}
+            <ExploreNext />
           </main>
           <SiteFooter />
         </RouteTransitionProvider>

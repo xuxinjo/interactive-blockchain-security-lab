@@ -1,24 +1,20 @@
-import { IncidentBarChart, IncidentTimelineChart } from "@/components/ui/IncidentCharts";
+import { DataExplorer } from "@/components/ui/DataExplorer";
+import { PageIntro } from "@/components/ui/PageIntro";
 import { MotionSection } from "@/components/ui/MotionSection";
-import { chartIncidentValues } from "@/content/analysis";
 
 export default function DataPage() {
   return (
     <MotionSection className="space-y-6">
-      <header className="space-y-2">
-        <h2 className="text-3xl font-semibold text-white">Data</h2>
+      <PageIntro number="06" label="The incident profile" title="Look closer at the numbers.">
         <p className="max-w-3xl text-slate-300">
           These SVG charts follow the thesis Figure 7 and Figure 8 style from Table 6. Values are approximate documented
           losses for the selected cases, not population statistics.
         </p>
-      </header>
+      </PageIntro>
+      <DataExplorer />
 
       <article className="panel space-y-3">
-        <h3 className="text-xl font-semibold text-white">Figure 7 Style - Approximate Value Involved by Incident</h3>
-        <p className="text-xs text-slate-400 sm:hidden">Swipe sideways inside the chart to see all values.</p>
-        <div className="visual-scroll rounded-lg bg-white p-2" role="region" aria-label="Incident values chart" tabIndex={0}>
-          <IncidentBarChart values={chartIncidentValues} />
-        </div>
+        <h3 className="text-xl font-semibold text-white">How to read this sample</h3>
         <p className="text-sm text-slate-300">
           Source: author&apos;s own elaboration from thesis Table 6. Parity 2017 is omitted because the funds were frozen
           rather than stolen. Bitcoin Gold includes the approximately USD 18 million 2018 episode; the 2020 double-spends
@@ -27,11 +23,7 @@ export default function DataPage() {
       </article>
 
       <article className="panel space-y-3">
-        <h3 className="text-xl font-semibold text-white">Figure 8 Style - Documented Loss over Time</h3>
-        <p className="text-xs text-slate-400 sm:hidden">Swipe sideways inside the chart to see all years.</p>
-        <div className="visual-scroll rounded-lg bg-white p-2" role="region" aria-label="Incident timeline chart" tabIndex={0}>
-          <IncidentTimelineChart values={chartIncidentValues} />
-        </div>
+        <h3 className="text-xl font-semibold text-white">Context and sources</h3>
         <p className="text-sm text-slate-300">
           The sample contains one protocol-layer incident and five application-layer incidents. Application-layer cases
           appear in 2016, 2017, 2021, and 2022; Bitcoin Gold represents the protocol layer in 2018 and 2020. The bridge-loss

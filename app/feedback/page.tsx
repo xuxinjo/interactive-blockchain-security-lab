@@ -1,14 +1,12 @@
 import { FeedbackForm } from "@/components/feedback/FeedbackForm";
+import { PageIntro } from "@/components/ui/PageIntro";
 
 export default function FeedbackPage() {
   return (
     <section className="space-y-4">
-      <header className="space-y-2">
-        <h2 className="text-3xl font-semibold text-white">Feedback</h2>
-        <p className="text-slate-300">
-          Local-only iteration notes for thesis refinement. This is not a production feedback system.
-        </p>
-      </header>
+      <PageIntro number="08" label="Your learning notebook" title="Keep the thought. Follow the question.">
+        Capture an insight, a question, or something that could be clearer. Your notes stay in this browser.
+      </PageIntro>
       <FeedbackForm />
     </section>
   );
