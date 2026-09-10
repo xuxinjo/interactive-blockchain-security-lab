@@ -508,7 +508,6 @@ function BlockchainScene({
 
   useFrame(({ camera, clock }, delta) => {
     const view = controls.current;
-    // Keep the network within the horizontal field of view on portrait screens.
     const portraitScale = camera instanceof THREE.PerspectiveCamera ? Math.max(1, 1.15 / camera.aspect) : 1;
 
     if (view.portalStartedAt !== null && network.current) {
