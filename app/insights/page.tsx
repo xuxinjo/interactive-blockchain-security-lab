@@ -36,7 +36,8 @@ export default function InsightsPage() {
           <h3 className="text-xl font-semibold text-white">Case Matrix</h3>
           <p className="text-sm text-slate-300">High, Medium, and Low mark rough fit for classroom comparison.</p>
         </div>
-        <div className="overflow-x-auto">
+        <p className="text-xs text-slate-400 sm:hidden">Swipe sideways inside the table to compare all columns.</p>
+        <div className="visual-scroll" role="region" aria-label="Detection matrix columns" tabIndex={0}>
           <table className="academic-table">
             <thead>
               <tr>

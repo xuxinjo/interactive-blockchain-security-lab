@@ -103,13 +103,13 @@ export function DiagramFrame({ model }: DiagramFrameProps) {
           </button>
         ))}
 
-        <label className="ml-auto flex items-center gap-2 text-sm text-slate-200" htmlFor={`${model.id}-perspective`}>
+        <label className="flex w-full min-w-0 flex-col gap-2 text-sm text-slate-200 sm:ml-auto sm:w-auto sm:flex-row sm:items-center" htmlFor={`${model.id}-perspective`}>
           Perspective
           <select
             id={`${model.id}-perspective`}
             value={adversarialView ? "adversarial" : "honest"}
             onChange={(event) => setAdversarialView(event.target.value === "adversarial")}
-            className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5"
+            className="min-w-0 rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5"
           >
             <option value="honest">Honest</option>
             <option value="adversarial">Adversarial (abstract)</option>
@@ -117,8 +117,9 @@ export function DiagramFrame({ model }: DiagramFrameProps) {
         </label>
       </div>
 
-      <div className="rounded-xl border border-slate-700 bg-slate-950/70 p-4">
-        <svg viewBox="0 0 720 250" role="img" aria-label={model.longDescription} className="w-full">
+      <p className="text-xs text-slate-400 sm:hidden">Swipe sideways inside the diagram to see every layer.</p>
+      <div className="visual-scroll rounded-xl border border-slate-700 bg-slate-950/70 p-3 sm:p-4" role="region" aria-label={`${model.title} scrollable diagram`} tabIndex={0}>
+        <svg viewBox="0 0 720 250" role="img" aria-label={model.longDescription} className="w-full min-w-[36rem]">
           <title>{model.title}</title>
           <desc>{model.longDescription}</desc>
           {model.layers

@@ -70,7 +70,8 @@ export function CaseComparisonTable({ incidents }: CaseComparisonTableProps) {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
+      <p className="text-xs text-slate-400 sm:hidden">Swipe sideways inside the table to compare all columns.</p>
+      <div className="visual-scroll" role="region" aria-label="Case comparison columns" tabIndex={0}>
         <table className="academic-table">
           <thead>
             <tr>

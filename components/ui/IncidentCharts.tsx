@@ -20,7 +20,7 @@ export function IncidentBarChart({ values }: IncidentChartsProps) {
   const scale = 560 / maxValue;
 
   return (
-    <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} role="img" aria-labelledby="fig7-title fig7-desc" className="w-full">
+    <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} role="img" aria-labelledby="fig7-title fig7-desc" className="w-full min-w-[40rem]">
       <title id="fig7-title">Figure 7 style bar chart</title>
       <desc id="fig7-desc">Approximate value involved by incident, excluding Parity because funds were frozen rather than stolen.</desc>
       <rect width={chartWidth} height={chartHeight} fill="#f8fafc" />
@@ -65,7 +65,7 @@ export function IncidentTimelineChart({ values }: IncidentChartsProps) {
   const yScale = 220 / maxValue;
 
   return (
-    <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} role="img" aria-labelledby="fig8-title fig8-desc" className="w-full">
+    <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} role="img" aria-labelledby="fig8-title fig8-desc" className="w-full min-w-[40rem]">
       <title id="fig8-title">Figure 8 style timeline chart</title>
       <desc id="fig8-desc">Documented loss over time from 2016 to 2022, patterned by protocol or application layer.</desc>
       <defs>

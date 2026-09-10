@@ -402,6 +402,8 @@ export function BlockchainNetworkCanvas() {
       </div>
 
       <p id="network-interaction-help" className="hero-network-help">
+        <span className="sm:hidden">{isPortalMode ? "Tap a glowing block to open its destination." : "Swipe sideways to rotate. Tap Go to select a destination."}</span>
+        <span className="hidden sm:inline">
         {isDragging
           ? "Release to keep the network spinning"
           : isPortalMode
@@ -411,6 +413,7 @@ export function BlockchainNetworkCanvas() {
           : hoveredPortal
             ? `Hold Ctrl and click to open ${hoveredPortal.destination.title}`
             : "Drag to rotate · Hold Ctrl to activate portal mode"}
+        </span>
       </p>
 
       {hoveredPortal && !isTransitioning && (
@@ -431,6 +434,23 @@ export function BlockchainNetworkCanvas() {
       )}
 
       <div className="hero-network-controls" onPointerDown={(event) => event.stopPropagation()}>
+        <button
+          type="button"
+          aria-label="Toggle destination selection"
+          aria-pressed={isPortalMode}
+          disabled={isTransitioning}
+          onClick={() => {
+            const enabled = !controls.current.portalMode;
+            controls.current.portalMode = enabled;
+            controls.current.dragging = false;
+            controls.current.dragDistance = 0;
+            controls.current.lastInteraction = Date.now();
+            setIsDragging(false);
+            setIsPortalMode(enabled);
+          }}
+        >
+          Go
+        </button>
         <button
           type="button"
           aria-label="Zoom out 3D network"
@@ -488,6 +508,8 @@ function BlockchainScene({
 
   useFrame(({ camera, clock }, delta) => {
     const view = controls.current;
+    // Keep the network within the horizontal field of view on portrait screens.
+    const portraitScale = camera instanceof THREE.PerspectiveCamera ? Math.max(1, 1.15 / camera.aspect) : 1;
 
     if (view.portalStartedAt !== null && network.current) {
       const progress = clamp((performance.now() - view.portalStartedAt) / 920, 0, 1);
@@ -499,7 +521,7 @@ function BlockchainScene({
         network.current.scale.setScalar(1 + accelerated * 2.35);
       }
 
-      camera.position.z = THREE.MathUtils.lerp(camera.position.z, 7.3, 1 - Math.pow(0.001, delta));
+      camera.position.z = THREE.MathUtils.lerp(camera.position.z, 7.3 * portraitScale, 1 - Math.pow(0.001, delta));
       return;
     }
 
@@ -525,7 +547,7 @@ function BlockchainScene({
       floatingLayer.current.position.y = Math.sin(clock.elapsedTime * 0.42) * 0.06;
     }
 
-    camera.position.z = THREE.MathUtils.lerp(camera.position.z, view.distance, 1 - Math.pow(0.002, delta));
+    camera.position.z = THREE.MathUtils.lerp(camera.position.z, view.distance * portraitScale, 1 - Math.pow(0.002, delta));
   });
 
   return (

@@ -12,14 +12,14 @@ const pillars = ["confidentiality", "integrity", "availability"] as const;
 export function FrameworkGrid({ cells, selectedCell, onSelect }: FrameworkGridProps) {
   return (
     <div className="grid gap-2" role="grid" aria-label="Layer and CIA framework grid">
-      <div className="grid grid-cols-4 gap-2 text-center text-xs uppercase tracking-wide text-slate-400">
+      <div className="hidden grid-cols-4 gap-2 text-center text-xs uppercase tracking-wide text-slate-400 md:grid">
         <span aria-hidden="true" />
         {pillars.map((pillar) => (
           <span key={pillar}>{pillar}</span>
         ))}
       </div>
       {layers.map((layer) => (
-        <div className="grid grid-cols-4 gap-2" key={layer} role="row">
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-4" key={layer} role="row">
           <div className="rounded-md border border-slate-700 bg-slate-900/80 p-3 text-sm font-medium capitalize text-white">
             {layer}
           </div>
@@ -42,6 +42,7 @@ export function FrameworkGrid({ cells, selectedCell, onSelect }: FrameworkGridPr
                 aria-pressed={selected}
                 aria-label={`Select ${layer} and ${pillar} analysis`}
               >
+                <span className="mb-1 block font-semibold capitalize text-cyan-200 md:hidden">{pillar}</span>
                 {cell.description}
               </button>
             );

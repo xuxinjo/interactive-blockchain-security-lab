@@ -15,7 +15,8 @@ export default function DataPage() {
 
       <article className="panel space-y-3">
         <h3 className="text-xl font-semibold text-white">Figure 7 Style - Approximate Value Involved by Incident</h3>
-        <div className="overflow-x-auto rounded-lg bg-white p-2">
+        <p className="text-xs text-slate-400 sm:hidden">Swipe sideways inside the chart to see all values.</p>
+        <div className="visual-scroll rounded-lg bg-white p-2" role="region" aria-label="Incident values chart" tabIndex={0}>
           <IncidentBarChart values={chartIncidentValues} />
         </div>
         <p className="text-sm text-slate-300">
@@ -27,7 +28,8 @@ export default function DataPage() {
 
       <article className="panel space-y-3">
         <h3 className="text-xl font-semibold text-white">Figure 8 Style - Documented Loss over Time</h3>
-        <div className="overflow-x-auto rounded-lg bg-white p-2">
+        <p className="text-xs text-slate-400 sm:hidden">Swipe sideways inside the chart to see all years.</p>
+        <div className="visual-scroll rounded-lg bg-white p-2" role="region" aria-label="Incident timeline chart" tabIndex={0}>
           <IncidentTimelineChart values={chartIncidentValues} />
         </div>
         <p className="text-sm text-slate-300">

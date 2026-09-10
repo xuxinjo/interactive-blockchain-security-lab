@@ -9,13 +9,14 @@
 body {
   @apply bg-slate-950 text-slate-100 antialiased;
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  overflow-wrap: anywhere;
   background-image:
     linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 1) 52%),
     linear-gradient(90deg, rgba(20, 184, 166, 0.08), transparent 34%, rgba(8, 145, 178, 0.07));
 }
 
 main {
-  @apply mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8;
+  @apply mx-auto w-full min-w-0 max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8;
 }
 
 a,
@@ -32,7 +33,18 @@ select:focus-visible {
 }
 
 .panel {
-  @apply rounded-lg border border-slate-700/80 bg-slate-900/70 p-5 shadow-[0_0_0_1px_rgba(15,23,42,0.5)];
+  @apply min-w-0 rounded-lg border border-slate-700/80 bg-slate-900/70 p-4 sm:p-5 shadow-[0_0_0_1px_rgba(15,23,42,0.5)];
+}
+
+.visual-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.visual-scroll:focus-visible {
+  outline: 2px solid rgb(103 232 249);
+  outline-offset: 3px;
 }
 
 .glow-card {
@@ -60,7 +72,7 @@ select:focus-visible {
     0 32px 80px rgba(2, 6, 23, 0.48),
     0 0 42px rgba(8, 145, 178, 0.08);
   cursor: grab;
-  touch-action: none;
+  touch-action: pan-y pinch-zoom;
   user-select: none;
 }
 
@@ -101,6 +113,7 @@ select:focus-visible {
   inset: 0;
   cursor: inherit;
   pointer-events: auto;
+  touch-action: pan-y pinch-zoom !important;
 }
 
 .hero-three-vignette {
@@ -161,14 +174,14 @@ select:focus-visible {
   right: 1rem;
   bottom: 1rem;
   display: grid;
-  grid-template-columns: repeat(3, 2.4rem);
+  grid-template-columns: repeat(4, 2.75rem);
   overflow: hidden;
   border-radius: 0.75rem;
 }
 
 .hero-network-controls button {
   display: grid;
-  height: 2.4rem;
+  height: 2.75rem;
   place-items: center;
   border-right: 1px solid rgba(103, 232, 249, 0.16);
   color: rgb(165 243 252);
@@ -353,6 +366,8 @@ select:focus-visible {
   justify-items: center;
   color: white;
   text-align: center;
+  width: calc(100% - 2rem);
+  max-width: 48rem;
   transform: translate(-50%, -50%);
   animation: route-portal-title-in 420ms 360ms ease-out both;
 }
@@ -540,7 +555,7 @@ select:focus-visible {
 
 @media (max-width: 640px) {
   .hero-visual-stage {
-    min-height: 27rem;
+    min-height: clamp(21rem, 65svh, 27rem);
   }
 
   .hero-network-help {
@@ -553,6 +568,19 @@ select:focus-visible {
     right: 50%;
     transform: translateX(50%);
   }
+
+  .hero-network-tooltip {
+    left: 50% !important;
+  }
+
+  .hero-crystal-content {
+    padding: 1.25rem;
+  }
+}
+
+.hero-network-controls button[aria-pressed="true"] {
+  background: rgba(124, 58, 237, 0.4);
+  color: white;
 }
 
 .module-carousel {
@@ -884,28 +912,58 @@ a.module-card-link:hover {
   }
 
   .module-deck-shell {
-    grid-template-columns: 3rem minmax(0, 1fr) 3rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
 
   .module-deck-viewport {
-    min-height: 32.5rem;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    min-height: 33.5rem;
   }
 
   .module-deck-card {
-    width: min(72vw, 19.25rem);
+    width: min(calc(100% - 2rem), 19.25rem);
+    height: 29rem;
+    aspect-ratio: auto;
   }
 
   .module-deck-arrow {
-    width: 2.65rem;
-    height: 2.65rem;
+    grid-row: 2;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .module-deck-arrow-left {
+    justify-self: end;
+  }
+
+  .module-deck-arrow-right {
+    justify-self: start;
   }
 
   .module-card-content {
     padding: 0.9rem;
+    grid-template-rows: 8rem 1fr auto;
   }
 
   .module-card-description {
-    font-size: 0.79rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  button,
+  input,
+  select {
+    min-height: 2.75rem;
+  }
+
+  input,
+  textarea,
+  select {
+    max-width: 100%;
+    font-size: 1rem;
   }
 }
 
@@ -918,7 +976,7 @@ a.module-card-link:hover {
 }
 
 .academic-table {
-  @apply w-full border-collapse text-sm;
+  @apply w-full min-w-[40rem] border-collapse text-sm;
 }
 
 .academic-table th {
