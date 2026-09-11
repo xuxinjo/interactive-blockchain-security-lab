@@ -1,6 +1,6 @@
 ﻿# Architecture
 
-This is a concept-stage Next.js App Router prototype. Most page text comes from typed files in `content/`, so the thesis facts are easier to check.
+This is a Next.js App Router application. Most page text comes from typed files in `content/`, so the thesis facts are easier to check.
 
 ## Folders
 

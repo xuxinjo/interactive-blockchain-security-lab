@@ -9,7 +9,7 @@ export default function AboutPage() {
     <MotionSection className="space-y-6">
       <PageIntro number="07" label="Behind the lab" title="From research to exploration.">
         <p className="max-w-3xl text-slate-200">
-          {thesisMetadata.artefact} is a prototype for the thesis &quot;{thesisMetadata.title}&quot;:
+          {thesisMetadata.artefact} is the educational artefact accompanying the thesis &quot;{thesisMetadata.title}&quot;:
           &quot;{thesisMetadata.subtitle}&quot;.
         </p>
       </PageIntro>
@@ -91,8 +91,8 @@ export default function AboutPage() {
         <h3 className="text-xl font-semibold text-white">Links and Reproduction</h3>
         <p>Commands: npm ci, npm run dev, npm run build, npm run test, npm run test:e2e.</p>
         <p>Repository: {thesisMetadata.repositoryUrl}</p>
-        <p>Provisional deployment: {thesisMetadata.deploymentUrl}</p>
-        <p>Independent external evaluation is planned and has not yet been completed.</p>
+        <p>Live deployment: {thesisMetadata.deploymentUrl}</p>
+        <p>The artefact is complete in its final version. An independent external user study is identified in the thesis as future work.</p>
       </article>
     </MotionSection>
   );

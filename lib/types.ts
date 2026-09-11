@@ -78,7 +78,7 @@ export interface ThesisSectionMapping {
   thesisSection: string;
   route: string;
   purpose: string;
-  status: "prototype" | "planned";
+  status: "implemented" | "planned";
 }
 
 export type LabMode = "vulnerable" | "guarded";

@@ -70,9 +70,13 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
       clearTimers();
       setTransition({ destination, origin, phase: "covering" });
 
-      const navigationDelay = reduceMotion ? 120 : 820;
-      const revealDelay = reduceMotion ? 210 : 1040;
-      const completionDelay = reduceMotion ? 430 : 1660;
+      const isDesktop =
+        typeof window !== "undefined" &&
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches;
+      const navigationDelay = reduceMotion ? 120 : isDesktop ? 1300 : 820;
+      const revealDelay = reduceMotion ? 210 : isDesktop ? 1660 : 1040;
+      const completionDelay = reduceMotion ? 430 : isDesktop ? 2650 : 1660;
 
       timers.current.push(
         window.setTimeout(() => router.push(destination.href), navigationDelay),

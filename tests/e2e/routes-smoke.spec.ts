@@ -16,6 +16,6 @@ for (const route of routes) {
   test(`renders ${route}`, async ({ page }) => {
     await page.goto(route);
     await expect(page.locator("main")).toBeVisible();
-    await expect(page.getByText("Classroom use only")).toBeVisible();
+    await expect(page.getByText(/no exploit code/i)).toBeVisible();
   });
 }

@@ -4,7 +4,7 @@
 
 The repository is ready for manual review and commit. Source files, documentation, tests, and deployment configuration are present. Generated dependencies, build output, browser-test output, temporary files, and local environment files are excluded.
 
-The npm dependency audit reports 12 existing warnings: 4 moderate, 7 high, and 1 critical. These warnings did not prevent installation, linting, building, or testing.
+The npm dependency audit reports 14 existing warnings: 3 moderate, 9 high, and 2 critical. These warnings did not prevent installation, linting, building, or testing.
 
 ## 2. Files changed
 
@@ -20,9 +20,15 @@ Modified:
 - `content/cases/incidents.ts`
 - `content/diagrams.ts`
 - `content/thesis.ts`
+- `components/layout/RouteTransitionProvider.tsx`
+- `components/layout/SiteFooter.tsx`
 - `lib/thesisMap.ts`
 - `lib/types.ts`
+- `tests/e2e/routes-smoke.spec.ts`
 - `tests/unit/contentAccuracy.test.ts`
+- Removed the top disclaimer banner and added the safety note to the footer.
+- Slowed the portal transition on desktop devices.
+- Updated project status wording to reflect the final version.
 
 Created:
 
@@ -31,6 +37,7 @@ Created:
 Removed:
 
 - Superseded untracked website update report
+- `components/layout/DisclaimerBanner.tsx`
 - Generated `node_modules/`
 - Generated `.next/`
 - Generated `test-results/`
@@ -61,17 +68,17 @@ No accidental editor or tooling references were found in repository files. Legit
   - Ronin (2022)
 - The framework uses protocol, network, and application layers.
 - The sample contains one protocol-layer incident and five application-layer incidents.
-- The project is described as a concept-stage prototype with a provisional deployment.
+- The project is described as a completed educational artefact (final version) with a live deployment.
 - No completed independent external evaluation is claimed.
 - Case-study and data-page references follow the final thesis sources where used.
 
 ## 7. Build and test result
 
-- `npm ci` - passed; dependency audit warnings remain.
+- `npm ci` - passed; 14 dependency audit warnings remain (3 moderate, 9 high, and 2 critical).
 - `npm run lint` - passed.
 - Separate typecheck command - not defined; `npm run build` completed TypeScript validation.
 - `npm run build` - passed.
-- `npm run test` - passed, 8 tests.
+- `npm run test` - passed, 14 tests.
 - `npm run test:e2e` - passed, 10 tests.
 
 ## 8. Manual steps
