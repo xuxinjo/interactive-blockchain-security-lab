@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { ExploreNext } from "@/components/layout/ExploreNext";
@@ -26,7 +25,6 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body className={inter.variable}>
         <RouteTransitionProvider>
           <AxeDevCheck />
-          <DisclaimerBanner />
           <SiteHeader />
           <main id="main-content" role="main" tabIndex={-1}>
             {children}

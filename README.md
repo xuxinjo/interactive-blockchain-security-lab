@@ -1,6 +1,6 @@
 # Interactive Blockchain Security Lab
 
-A concept-stage educational artefact accompanying the Bachelor's thesis **AI Security: Security in Blockchain Systems**.
+The educational artefact accompanying the Bachelor's thesis **AI Security: Security in Blockchain Systems**.
 
 The lab organises blockchain security concepts across the protocol, network, and application layers. It supports learning through a layered framework, diagrams, selected incident summaries, a small state visualiser, and descriptive charts.
 
@@ -23,9 +23,9 @@ The six case studies are:
 
 ## Status
 
-This repository contains the concept-stage prototype of the Interactive Blockchain Security Lab. The deployment is provisional, and independent user evaluation has not yet been completed.
+This repository contains the final version of the Interactive Blockchain Security Lab, the completed educational artefact of the thesis. Release: v1.0.0.
 
-- Provisional deployment: https://interactive-blockchain-security-lab.vercel.app
+- Live deployment: https://interactive-blockchain-security-lab.vercel.app
 - Repository: https://github.com/xuxinjo/interactive-blockchain-security-lab
 
 ## Safety

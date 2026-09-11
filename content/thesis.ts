@@ -24,7 +24,7 @@ export const thesisMetadata = {
   title: "AI Security: Security in Blockchain Systems",
   subtitle: "A layered security framework and an educational artefact",
   artefact: "Interactive Blockchain Security Lab",
-  status: "Concept-stage educational prototype",
+  status: "Completed educational artefact – final version",
   author: "Rrezon Halilabazi",
   university: "WSB University",
   supervisor: "Dr. inż. Adrian Kapczyński",

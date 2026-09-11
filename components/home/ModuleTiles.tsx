@@ -58,7 +58,7 @@ const modules = [
     title: "Feedback",
     href: "/feedback",
     kicker: "Local notes",
-    description: "Capture private, browser-only observations while reviewing the educational prototype.",
+    description: "Capture private, browser-only observations while reviewing the educational artefact.",
     accent: "indigo"
   }
 ] as const;

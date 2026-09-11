@@ -54,6 +54,6 @@ describe("content data", () => {
   it("has the research questions and insight rows", () => {
     expect(researchQuestions).toHaveLength(4);
     expect(mlDetectionMatrix).toHaveLength(6);
-    expect(thesisMetadata.status).toMatch(/concept-stage/i);
+    expect(thesisMetadata.status).toMatch(/completed educational artefact/i);
   });
 });

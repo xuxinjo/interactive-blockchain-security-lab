@@ -15,7 +15,7 @@ export default function HomePage() {
           distributed network behaviour, and application code.
         </p>
         <p className="text-slate-300">
-          This concept-stage prototype shows how those layers interact, why assumptions fail in documented incidents,
+          This educational artefact shows how those layers interact, why assumptions fail in documented incidents,
           and how known defences fit the thesis framework.
         </p>
       </section>

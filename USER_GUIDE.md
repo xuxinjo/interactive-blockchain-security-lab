@@ -125,8 +125,8 @@ The deck loops continuously. After the final card, the first card appears again.
 | Lab | Change the scenario state and observe how re-entrancy and bridge assumptions affect the result. |
 | Insights | Review the limits and possible roles of ML-assisted detection across the cases. |
 | Data | Read charts derived from the thesis data and compare the represented incidents. |
-| About | Review the academic context, prototype scope, and project references. |
-| Feedback | Enter local notes about the prototype experience. |
+| About | Review the academic context, artefact scope, and project references. |
+| Feedback | Enter local notes about the application experience. |
 
 ## Keyboard and accessibility
 
@@ -181,4 +181,4 @@ Node.js must be version 20 through 24. Then run `npm ci` again from the director
 
 ## Safety and academic scope
 
-The application is an explanatory prototype. It contains no private keys, wallet connection, RPC calls, contract deployment, live-chain actions, or executable attack tooling. The selected incidents are a purposive educational sample and are not a statistical representation of all blockchain security failures.
+The application is an explanatory educational artefact. It contains no private keys, wallet connection, RPC calls, contract deployment, live-chain actions, or executable attack tooling. The selected incidents are a purposive educational sample and are not a statistical representation of all blockchain security failures.
